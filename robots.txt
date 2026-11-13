@@ -1,0 +1,4 @@
+User-agent: *
+Disallow: /_src/
+
+Sitemap: https://www.eranosinstitute.com/sitemap.xml
