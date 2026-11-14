@@ -91,3 +91,39 @@ var navEl = document.getElementById("nav"), burger = document.getElementById("bu
 burger.addEventListener("click", function(){ var o = navEl.classList.toggle("open"); burger.setAttribute("aria-expanded", o ? "true" : "false"); });
 var io = ("IntersectionObserver" in window) ? new IntersectionObserver(function(es){ es.forEach(function(e){ if (e.isIntersecting){ e.target.classList.add("in"); io.unobserve(e.target); } }); }, {rootMargin:"0px 0px -8% 0px"}) : null;
 document.querySelectorAll(".rv").forEach(function(el){ if (io) io.observe(el); else el.classList.add("in"); });
+
+/* ---------- boîte de dialogue : écrire à l'institut ---------- */
+(function(){
+  var dlg = document.getElementById("dlg"), form = document.getElementById("wform"), st = document.getElementById("f-status"), send = document.getElementById("f-send");
+  if (!dlg || !form) return;
+  document.addEventListener("click", function(ev){
+    var b = ev.target.closest ? ev.target.closest("[data-write]") : null;
+    if (!b) return;
+    ev.preventDefault();
+    var s = b.getAttribute("data-write");
+    if (s) document.getElementById("f-obj").value = s;
+    st.textContent = ""; st.className = "";
+    if (dlg.showModal) dlg.showModal(); else dlg.setAttribute("open", "");
+    document.getElementById("f-name").focus();
+  });
+  document.getElementById("dlg-x").addEventListener("click", function(){ dlg.close(); });
+  dlg.addEventListener("click", function(ev){ if (ev.target === dlg) dlg.close(); });
+  form.addEventListener("submit", function(ev){
+    ev.preventDefault();
+    if (!form.checkValidity()){ form.reportValidity(); return; }
+    var d = {}; new FormData(form).forEach(function(v, k){ d[k] = v; });
+    if (d._honey){ return; }
+    d._subject = "Site ERANOS Institute : " + d.objet;
+    d._template = "table";
+    d._replyto = d.email;
+    send.disabled = true; st.className = ""; st.textContent = "Envoi en cours…";
+    fetch("https://formsubmit.co/ajax/" + CONTACT, { method: "POST", headers: { "Content-Type": "application/json", "Accept": "application/json" }, body: JSON.stringify(d) })
+      .then(function(r){ return r.json().then(function(j){ return { ok: r.ok, j: j }; }); })
+      .then(function(r){
+        if (r.ok && String(r.j.success) === "true"){ st.className = "ok"; st.textContent = "Message envoyé. Merci, nous vous répondons sous 24 à 72 heures."; form.reset(); }
+        else { throw new Error("refus"); }
+      })
+      .catch(function(){ st.className = "ko"; st.textContent = "L'envoi n'a pas abouti. Écrivez-nous à " + CONTACT + " ou appelez le +33 6 29 76 83 90."; })
+      .then(function(){ send.disabled = false; });
+  });
+})();

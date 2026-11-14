@@ -50,8 +50,11 @@ ul{margin:0;padding:0;list-style:none}
 .bar{position:sticky;top:0;z-index:50;background:rgba(8,32,47,.9);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);color:var(--mist);border-bottom:1px solid var(--rule-d)}
 .bar .wrap{display:flex;align-items:center;gap:22px;min-height:68px}
 .brand{display:flex;align-items:center;gap:12px;text-decoration:none}
-.brand img{width:44px;height:44px;transition:transform .9s cubic-bezier(.2,.7,.2,1)}
-.brand:hover img{transform:rotate(60deg)}
+.brand .rz{position:relative;flex:none;width:44px;height:44px;display:block}
+.brand .rz img{position:absolute;inset:0;width:100%;height:100%}
+.brand .rz img:first-child{transition:transform .9s cubic-bezier(.2,.7,.2,1)}
+.brand:hover .rz img:first-child{transform:rotate(60deg)}
+.brand .rz .core{transform-origin:50% 50%}
 .brand span{font-family:var(--body);font-weight:300;letter-spacing:.42em;font-size:19px;line-height:1}
 .brand small{display:block;font-size:9.5px;letter-spacing:.46em;margin-top:5px;color:var(--glacier)}
 .bar nav{margin-left:auto;display:flex;gap:4px;align-items:center;flex-wrap:wrap}
@@ -97,6 +100,11 @@ ul{margin:0;padding:0;list-style:none}
 .hero h1 em{font-style:normal;color:var(--moss)}
 .hero .lede{max-width:33em;margin-top:26px;font-size:20px;font-weight:300;color:rgba(231,241,238,.92)}
 .hero .cta{display:flex;gap:14px;flex-wrap:wrap;margin-top:38px}
+.emblem{position:relative}
+.emblem img{display:block;width:100%;height:auto}
+.emblem .core{position:absolute;inset:0;transform-origin:50.4% 29%}
+.core{animation:beat 1.35s cubic-bezier(.3,0,.3,1) infinite}
+@keyframes beat{0%,46%,100%{transform:scale(1);filter:brightness(1)}12%{transform:scale(1.2);filter:brightness(1.25) drop-shadow(0 0 10px rgba(143,208,230,.9))}24%{transform:scale(1)}34%{transform:scale(1.12);filter:brightness(1.15) drop-shadow(0 0 6px rgba(143,208,230,.7))}}
 .hero .emblem{width:min(340px,30vw);filter:drop-shadow(0 4px 18px rgba(8,32,47,.75)) drop-shadow(0 0 46px rgba(143,208,230,.5));animation:breathe 9s ease-in-out infinite}
 @keyframes breathe{50%{filter:drop-shadow(0 4px 18px rgba(8,32,47,.75)) drop-shadow(0 0 80px rgba(143,208,230,.85));transform:translateY(-6px)}}
 .greek{position:absolute;left:0;right:0;bottom:0}
@@ -335,7 +343,7 @@ blockquote cite{display:block;margin-top:10px;font:400 14.5px/1.4 var(--body);fo
 /* pied */
 footer{position:relative;overflow:hidden;background:var(--abyss);color:rgba(231,241,238,.72);font-size:15px}
 footer .wrap{position:relative;display:grid;grid-template-columns:minmax(0,4fr) repeat(3,minmax(0,2fr));gap:44px;padding-top:150px;padding-bottom:44px}
-footer img.fl{width:190px}
+footer .fl{width:190px}
 footer h4{font:500 12px/1 var(--body);letter-spacing:.28em;text-transform:uppercase;color:var(--glacier);margin-bottom:14px}
 footer li{padding:4px 0}
 footer a{text-decoration:none}
@@ -394,7 +402,7 @@ footer svg.land{position:absolute;left:0;right:0;top:0;width:100%;height:150px;o
 
 <div class="bar">
   <div class="wrap">
-    <a class="brand" href="#accueil" aria-label="ERANOS Institute, accueil"><img src="assets/rosace-light.png" alt="" width="44" height="44"><span>ERANOS<small>INSTITUTE</small></span></a>
+    <a class="brand" href="#accueil" aria-label="ERANOS Institute, accueil"><i class="rz"><img src="assets/rosace-ring.png" alt="" width="44" height="44"><img class="core" src="assets/rosace-core.png" alt="" width="44" height="44"></i><span>ERANOS<small>INSTITUTE</small></span></a>
     <button class="burger" id="burger" type="button" aria-expanded="false" aria-controls="nav">Menu</button>
     <nav id="nav" aria-label="Sections du site">
       <a href="#eranos">À propos</a>
@@ -425,7 +433,7 @@ footer svg.land{position:absolute;left:0;right:0;top:0;width:100%;height:150px;o
           <a class="btn btn-ghost" href="#fudoshin">Le programme Fudōshin</a>
         </div>
       </div>
-      <img class="emblem" src="assets/logo-light.png" width="582" height="566" alt="Logo ERANOS Institute : une rosace à douze pétales">
+      <div class="emblem"><img src="assets/logo-ring.png" width="582" height="566" alt="Logo ERANOS Institute : une rosace à douze pétales"><img class="core" src="assets/logo-core.png" width="582" height="566" alt=""></div>
     </div>
   </header>
 
@@ -702,7 +710,7 @@ footer svg.land{position:absolute;left:0;right:0;top:0;width:100%;height:150px;o
 <!-- ============ FORMATIONS ============ -->
 <div class="view" id="v-formations">
   <header class="scene phead" data-seed="64" data-h="430"><div class="veil"></div><div class="wrap">
-    <p class="lab">Formations</p><h1>Quarante modules, de un à six jours</h1>
+    <p class="lab">Formations</p><h1>Quarante modules, de un à huit jours</h1>
     <p>Trois catalogues pour les professionnels du travail social, de l'éducation, de la santé et de l'entreprise.</p>
   </div></header>
   <section class="s dark" style="padding:56px 0 64px">
@@ -726,7 +734,7 @@ footer svg.land{position:absolute;left:0;right:0;top:0;width:100%;height:150px;o
 <div class="view" id="v-prestations">
   <header class="scene phead" data-seed="77" data-h="430"><div class="veil"></div><div class="wrap">
     <p class="lab">Prestations</p><h1>Quatre interventions, en présentiel ou à distance</h1>
-    <p>Chaque action fait l'objet d'une convention de formation et d'un devis détaillé. Les formations peuvent être rendues accessibles aux personnes en situation de handicap : contactez-nous.</p>
+    <p>Chaque action fait l'objet d'une convention de formation et d'un devis détaillé. L'association n'est pas assujettie à la TVA : les prix affichés sont nets de taxe, ce sont les montants à régler. Les formations peuvent être rendues accessibles aux personnes en situation de handicap : contactez-nous.</p>
   </div></header>
   <section class="s"><div class="wrap" id="presta-list"></div></section>
 </div>
@@ -922,7 +930,7 @@ footer svg.land{position:absolute;left:0;right:0;top:0;width:100%;height:150px;o
   <svg class="land" id="footland" viewBox="0 0 1600 150" preserveAspectRatio="none" aria-hidden="true"></svg>
   <div class="wrap">
     <div>
-      <img class="fl" src="assets/logo-light.png" width="582" height="566" alt="ERANOS Institute">
+      <div class="fl emblem"><img src="assets/logo-ring.png" width="582" height="566" alt="ERANOS Institute"><img class="core" src="assets/logo-core.png" width="582" height="566" alt=""></div>
     </div>
     <div><h4>L'institut</h4><ul><li><a href="#eranos">À propos</a></li><li><a href="#fondateur">Le fondateur</a></li><li><a href="#equipe">L'équipe</a></li><li><a href="#chaire">La chaire</a></li></ul></div>
     <div><h4>Agir</h4><ul><li><a href="#formations">Formations</a></li><li><a href="#prestations">Prestations</a></li><li><a href="#fudoshin">Programme Fudōshin</a></li><li><a href="#contact">Contact</a></li></ul></div>
@@ -959,21 +967,21 @@ var BOOKS = [
 
 var PRESTA = [
  {id:"p-ie", t:"Intelligence émotionnelle et efficacité managériale", r:"Comprendre l'intelligence émotionnelle, repérer ses propres compétences et les appliquer à la communication, à la décision et à la gestion des conflits.",
-  tags:["35 heures","Présentiel","6 000 € TTC"],
+  tags:["35 heures","Présentiel","6 000 € net de taxe"],
   pub:"Managers, cadres, psychologues, professionnels de la santé, agents de service public, personnels et chefs d'entreprise.",
-  facts:[["Durée","35 heures en présentiel, de 9 h à 17 h"],["Prérequis","Aucun"],["Formateur","Alain Ruffion"],["Tarif","6 000 € TTC"]],
+  facts:[["Durée","35 heures en présentiel, de 9 h à 17 h"],["Prérequis","Aucun"],["Formateur","Alain Ruffion"],["Tarif","6 000 € net de taxe"]],
   steps:[["Introduction à l'intelligence émotionnelle","Une demi-journée. Définitions et concepts, travaux de Daniel Goleman."],["Les composantes","Un jour. Connaissance de soi, maîtrise de soi, empathie, compétences sociales."],["L'application au leadership","Un jour. Communication, décision, motivation des équipes."],["Émotions et conflits","Un jour et demi. Gestion du stress, résolution de conflits, techniques de médiation."],["Plan d'action personnel","Une demi-journée. Évaluation de ses compétences et suivi des progrès."]],
   eval:"Questionnaire des besoins en amont, quiz par module, courte rédaction sur la mise en pratique, évaluation à chaud, questionnaire de suivi dans les deux mois."},
  {id:"p-inc", t:"Développer ses ressources face aux changements et aux incertitudes", r:"Observer son fonctionnement intérieur, réguler sa charge émotionnelle et son stress, récupérer de l'énergie.",
-  tags:["14 heures","Présentiel ou distanciel","De 1 000 à 1 500 € TTC"],
+  tags:["14 heures","Présentiel ou distanciel","De 1 000 à 1 500 € nets de taxe"],
   pub:"Tout professionnel confronté à des transitions. Formation possible en intra-entreprise.",
-  facts:[["Présentiel","14 heures : une journée, puis une journée un mois plus tard"],["Distanciel","4 séances de 3 heures et 2 heures de travail personnel"],["Lieu","23 rue Vacon, 13001 Marseille"],["Tarifs","Présentiel : 1 500 € TTC (entreprises), 1 200 € TTC (associations et TPE). Distanciel : 1 250 € et 1 000 € TTC"]],
+  facts:[["Présentiel","14 heures : une journée, puis une journée un mois plus tard"],["Distanciel","4 séances de 3 heures et 2 heures de travail personnel"],["Lieu","23 rue Vacon, 13001 Marseille"],["Tarifs","Présentiel : 1 500 € (entreprises), 1 200 € (associations et TPE). Distanciel : 1 250 € et 1 000 €. Prix nets de taxe"]],
   steps:[["Comprendre l'incertitude","Sources d'incertitude au travail et dans la vie personnelle, cas concrets."],["Les mécanismes psychologiques","Mécanismes de défense et biais cognitifs, en atelier et en jeux de rôle."],["Développer la résilience","Relaxation, pleine conscience, exercices de respiration."],["S'adapter au changement","Étapes de l'adaptation, techniques de communication, simulations."],["Décider en contexte incertain","Méthodes de décision, puis plan d'action individuel et collectif."]],
   eval:"Quiz en fin de journée, observation pendant les ateliers, qualité des plans d'action, questionnaire de satisfaction."},
  {id:"p-med", t:"Médiation professionnelle pour travailleurs sociaux", r:"Gérer et résoudre les conflits entre résidents en hébergement d'urgence, dans un contexte multiculturel marqué par les traumatismes et la précarité.",
-  tags:["14 heures","2 jours","3 000 € TTC"],
+  tags:["14 heures","2 jours","3 000 € net de taxe"],
   pub:"Travailleurs sociaux des centres d'hébergement d'urgence accueillant des personnes issues de l'immigration.",
-  facts:[["Durée","14 heures sur deux jours"],["Prérequis","Aucun"],["Dates","À fixer ensemble"],["Tarif","3 000 € TTC : 2 × 1 200 € de coût pédagogique et 600 € de frais du formateur"]],
+  facts:[["Durée","14 heures sur deux jours"],["Prérequis","Aucun"],["Dates","À fixer ensemble"],["Tarif","3 000 € net de taxe : 2 × 1 200 € de coût pédagogique et 600 € de frais du formateur"]],
   steps:[["Les fondamentaux de la médiation","Principes, rôle du médiateur, cadre juridique en France."],["La psychologie des conflits","Typologie, déclencheurs en contexte multiculturel, effet des traumatismes."],["La communication en médiation","Communication non violente, écoute active, gestion des émotions."],["Le processus en cinq étapes","Préparation, ouverture, exploration, négociation, clôture."],["L'approche interculturelle","Adapter les techniques, puis ateliers pratiques et retours collectifs."]],
   eval:"Test avant et après la formation, observation des simulations, questionnaire de satisfaction, plan d'action individuel."},
  {id:"p-soft", t:"Développer les soft skills chez les jeunes en insertion et en formation", r:"Quatre jours pour travailler l'assise personnelle, les compétences cognitives, relationnelles et de réalisation. Cette prestation porte aussi la professionnalisation des intervenants du dispositif pairs.",
