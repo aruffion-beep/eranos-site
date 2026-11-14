@@ -460,7 +460,6 @@ document.querySelectorAll(".rv").forEach(function(el){ if (io) io.observe(el); e
 <title>ERANOS Institute</title>
 <link rel="canonical" href="%s/%s">
 <meta http-equiv="refresh" content="0; url=%s">
-<meta name="robots" content="noindex">
 </head>
 <body>
 <p>Cette page a changé d'adresse : <a href="%s">suivre ce lien</a>.</p>
