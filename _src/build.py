@@ -8,7 +8,11 @@ import functools, hashlib, html, http.server, json, pathlib, re, socketserver, s
 
 ROOT = pathlib.Path(__file__).resolve().parent.parent
 SRC = ROOT / "_src"
-DOMAIN = "https://www.eranosinstitute.com"
+# Adresse publique déclarée aux moteurs de recherche (canonique, plan du site).
+# Tant que le domaine www.eranosinstitute.com n'est pas branché sur ce site,
+# c'est l'adresse GitHub Pages. Le jour du branchement : remettre
+# "https://www.eranosinstitute.com" ici, relancer build.py, ajouter le fichier CNAME.
+DOMAIN = "https://aruffion-beep.github.io/eranos-site"
 
 # Profils de l'institut sur les réseaux. Ils sont repris dans les données
 # structurées de chaque page (sameAs), ce qui rattache ces profils au site.
