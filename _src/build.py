@@ -368,7 +368,7 @@ document.querySelectorAll(".rv").forEach(function(el){ if (io) io.observe(el); e
   });
 })();
 """
-    head_js = 'var CONTACT = ["alain.ruffion","hotmail.fr"].join("@");\n\n'
+    head_js = 'var CONTACT = ["contact","eranos-institute.fr"].join("@");\n\n'
     (ROOT / "assets" / "site.js").write_text(head_js + contact + land + tail, encoding="utf-8")
 
     # Empreinte du contenu, ajoutée à l'adresse des deux fichiers : le navigateur

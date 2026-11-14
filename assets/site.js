@@ -1,4 +1,4 @@
-var CONTACT = ["alain.ruffion","hotmail.fr"].join("@");
+var CONTACT = ["contact","eranos-institute.fr"].join("@");
 
 /* ---------- contact ---------- */
 var mail = document.getElementById("mail");
