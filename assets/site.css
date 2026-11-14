@@ -332,6 +332,9 @@ blockquote cite{display:block;margin-top:10px;font:400 14.5px/1.4 var(--body);fo
 footer{position:relative;overflow:hidden;background:var(--abyss);color:rgba(231,241,238,.72);font-size:15px}
 footer .wrap{position:relative;display:grid;grid-template-columns:minmax(0,4fr) repeat(3,minmax(0,2fr));gap:44px;padding-top:150px;padding-bottom:44px}
 footer .fl{width:190px}
+.soc{display:flex;gap:10px;margin-top:22px}
+.soc a{display:grid;place-items:center;width:44px;height:44px;border-radius:50%;border:1px solid var(--rule-d);color:var(--mist);transition:background .25s,color .25s}
+.soc a:hover{background:var(--glacier);color:var(--abyss);text-decoration:none}
 footer h4{font:500 12px/1 var(--body);letter-spacing:.28em;text-transform:uppercase;color:var(--glacier);margin-bottom:14px}
 footer li{padding:4px 0}
 footer a{text-decoration:none}
