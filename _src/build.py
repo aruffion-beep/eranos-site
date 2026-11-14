@@ -4,7 +4,7 @@
 Usage : python3 _src/build.py   (depuis la racine du dépôt ; nécessite playwright et Chrome)
 Sortie : *.html à la racine, assets/site.css, assets/site.js, sitemap.xml, robots.txt
 """
-import functools, html, http.server, json, pathlib, re, socketserver, sys, threading
+import functools, hashlib, html, http.server, json, pathlib, re, socketserver, sys, threading
 
 ROOT = pathlib.Path(__file__).resolve().parent.parent
 SRC = ROOT / "_src"
@@ -348,6 +348,12 @@ document.querySelectorAll(".rv").forEach(function(el){ if (io) io.observe(el); e
     head_js = 'var CONTACT = ["alain.ruffion","hotmail.fr"].join("@");\n\n'
     (ROOT / "assets" / "site.js").write_text(head_js + contact + land + tail, encoding="utf-8")
 
+    # Empreinte du contenu, ajoutée à l'adresse des deux fichiers : le navigateur
+    # recharge la feuille de style et le script dès qu'ils changent.
+    def stamp(name):
+        return hashlib.sha1((ROOT / "assets" / name).read_bytes()).hexdigest()[:8]
+    css_v, js_v = stamp("site.css"), stamp("site.js")
+
     footer = links(footer).replace(
         '<span>Paysage : le lac Majeur vu d\'Ascona, dessin original</span>',
         '<span class="lnk"><a href="livret-accueil.html">Livret d\'accueil</a><a href="reglement-interieur.html">Règlement intérieur</a><a href="mentions-legales.html">Mentions légales</a><a href="cgv.html">CGV</a><a href="confidentialite.html">Confidentialité</a></span>')
@@ -377,7 +383,7 @@ document.querySelectorAll(".rv").forEach(function(el){ if (io) io.observe(el); e
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 %s
-<link rel="stylesheet" href="assets/site.css">
+<link rel="stylesheet" href="assets/site.css?v=%s">
 </head>
 <body>
 
@@ -392,10 +398,10 @@ document.querySelectorAll(".rv").forEach(function(el){ if (io) io.observe(el); e
 
 %s
 
-<script src="assets/site.js"></script>
+<script src="assets/site.js?v=%s"></script>
 </body>
 </html>
-""" % (title, desc, url, title, desc, url, ORG_LD, fonts, nav, body, footer, DIALOG)
+""" % (title, desc, url, title, desc, url, ORG_LD, fonts, css_v, nav, body, footer, DIALOG, js_v)
 
     for old in ROOT.glob("formation-*.html"):
         old.unlink()
