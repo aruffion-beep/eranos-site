@@ -10,6 +10,30 @@ ROOT = pathlib.Path(__file__).resolve().parent.parent
 SRC = ROOT / "_src"
 DOMAIN = "https://www.eranosinstitute.com"
 
+# Profils de l'institut sur les réseaux. Ils sont repris dans les données
+# structurées de chaque page (sameAs), ce qui rattache ces profils au site.
+SOCIAL = [
+    "https://www.instagram.com/danielruffin79/",
+    "https://www.facebook.com/profile.php?id=61595758641579",
+    "https://www.linkedin.com/in/alain-ruffion-%C3%A9ducation-psychologie-positive--spiritualit%C3%A9s/",
+]
+ORG_LD = json.dumps({
+    "@context": "https://schema.org",
+    "@type": "EducationalOrganization",
+    "name": "ERANOS Institute",
+    "url": DOMAIN + "/",
+    "logo": DOMAIN + "/assets/logo-light.png",
+    "telephone": "+33 6 29 76 83 90",
+    "address": {
+        "@type": "PostalAddress",
+        "streetAddress": "12 chemin du vallon de Barla",
+        "postalCode": "06200",
+        "addressLocality": "Nice",
+        "addressCountry": "FR",
+    },
+    "sameAs": SOCIAL,
+}, ensure_ascii=False)
+
 PAGES = {  # vue -> (fichier, titre, description)
     "accueil": ("index.html", "ERANOS Institute : formations, recherche et publications", "ERANOS Institute, à Nice : formations, accompagnement, recherche et publications en psychologie positive, éducation, médiation et intelligence spirituelle des dirigeants."),
     "eranos": ("a-propos.html", "À propos d'ERANOS Institute : du banquet grec aux rencontres d'Ascona", "L'histoire du mot eranos, des banquets grecs aux rencontres d'Ascona sur le lac Majeur, et la présentation de l'institut fondé en 2013 par Alain Ruffion."),
@@ -348,6 +372,7 @@ document.querySelectorAll(".rv").forEach(function(el){ if (io) io.observe(el); e
 <meta property="og:title" content="%s">
 <meta property="og:description" content="%s">
 <meta property="og:url" content="%s">
+<script type="application/ld+json">%s</script>
 <link rel="icon" type="image/png" href="assets/rosace-light.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -370,7 +395,7 @@ document.querySelectorAll(".rv").forEach(function(el){ if (io) io.observe(el); e
 <script src="assets/site.js"></script>
 </body>
 </html>
-""" % (title, desc, url, title, desc, url, fonts, nav, body, footer, DIALOG)
+""" % (title, desc, url, title, desc, url, ORG_LD, fonts, nav, body, footer, DIALOG)
 
     for old in ROOT.glob("formation-*.html"):
         old.unlink()
