@@ -229,6 +229,7 @@ def main():
 .legaltxt h2{font-size:28px;margin:44px 0 12px;padding-top:22px;border-top:1px solid var(--rule)}
 .legaltxt h2:first-child{margin-top:0;border-top:0;padding-top:0}
 .legaltxt p{margin-top:12px;font-size:16.5px}
+.legaltxt h3{font-size:21px;margin:26px 0 6px}
 .legaltxt ul{margin-top:12px;display:grid;gap:8px}
 .legaltxt li{position:relative;padding-left:22px;font-size:16.5px}
 .legaltxt li::before{content:"";position:absolute;left:0;top:.8em;width:9px;height:1.5px;background:var(--alp)}
