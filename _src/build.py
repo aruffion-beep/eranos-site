@@ -17,6 +17,25 @@ SOCIAL = [
     "https://www.facebook.com/profile.php?id=61595758641579",
     "https://www.linkedin.com/in/alain-ruffion-%C3%A9ducation-psychologie-positive--spiritualit%C3%A9s/",
 ]
+# Adresses de l'ancien site (Webflow) encore connues de Google et des liens
+# extérieurs : chacune devient une petite page qui renvoie vers la nouvelle.
+# /ressources et /contact existent déjà sous le même nom.
+REDIRECTS = {
+    "eranos": "a-propos.html",
+    "bibliographie-du-fondateur-de-eranos": "fondateur.html",
+    "equipe-eranos": "equipe.html",
+    "connaissances-et-outils-sur-les-fondements-des-metiers-du-travail-social-et-socio-educatif": "formations.html",
+    "competences-specialisees-en-travail-social-et-socio-educatif": "formations.html",
+    "la-psychologie-positive-leducation-positive-et-leducation-critique-a-la-spiritualite": "formations.html",
+    "intelligence-emotionnelle-et-efficacite-manageriale": "prestations.html",
+    "developper-ses-ressources-face-aux-changements-et-aux-incertitudes": "prestations.html",
+    "mediation-professionnelle-pour-travailleurs-sociaux": "prestations.html",
+    "soft-skills": "prestations.html",
+    "mention-legale": "mentions-legales.html",
+    "telechargement-livret-daccueil-et-reglement-interieur": "livret-accueil.html",
+    "politique-de-confidentialite": "confidentialite.html",
+    "conditions-generales-de-vente": "cgv.html",
+}
 ORG_LD = json.dumps({
     "@context": "https://schema.org",
     "@type": "EducationalOrganization",
@@ -431,6 +450,23 @@ document.querySelectorAll(".rv").forEach(function(el){ if (io) io.observe(el); e
   </div></div></section>""" % (151 + i * 12, title, lede, txt)
         (ROOT / fname).write_text(page(fname, title + " · ERANOS Institute", lede, body, None), encoding="utf-8")
         made.append(fname)
+
+    for old, new in REDIRECTS.items():
+        assert new in made, new
+        (ROOT / (old + ".html")).write_text("""<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<title>ERANOS Institute</title>
+<link rel="canonical" href="%s/%s">
+<meta http-equiv="refresh" content="0; url=%s">
+<meta name="robots" content="noindex">
+</head>
+<body>
+<p>Cette page a changé d'adresse : <a href="%s">suivre ce lien</a>.</p>
+</body>
+</html>
+""" % (DOMAIN, new, new, new), encoding="utf-8")
 
     (ROOT / "sitemap.xml").write_text('<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n' + "".join(
         "  <url><loc>%s/%s</loc></url>\n" % (DOMAIN, "" if f == "index.html" else f) for f in made) + "</urlset>\n", encoding="utf-8")
