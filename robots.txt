@@ -1,4 +1,4 @@
 User-agent: *
 Disallow: /_src/
 
-Sitemap: https://aruffion-beep.github.io/eranos-site/sitemap.xml
+Sitemap: https://eranos-institute.fr/sitemap.xml
